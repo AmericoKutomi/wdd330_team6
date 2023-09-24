@@ -1,6 +1,6 @@
 :root {
   --font-body: Arial, Helvetica, sans-serif;
-  --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-headline: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   /* colors */
   --primary-color: #f0a868;
   --secondary-color: #525b0f;
@@ -153,6 +153,12 @@ button {
 
 .card__name {
   font-size: 1em;
+}
+
+.discount {
+  background-color: lightgreen;
+  padding:2px;
+  border-radius: 5px;
 }
 /* End product list card */
 

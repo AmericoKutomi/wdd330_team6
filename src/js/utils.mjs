@@ -16,7 +16,7 @@ export function setLocalStorage(key, data) {
 // save data to local storage as an array
 export function setArrLocalStorage(key, data) {
   const localData = getLocalStorage(key);
-  localStorage.setItem(key, JSON.stringify( Array.isArray(localData) ? [... localData, data] : [data] ));
+  localStorage.setItem(key, JSON.stringify(Array.isArray(localData) ? [... localData, data] : [data]));
 }
 
 // set a listener for both touchend and click
@@ -33,9 +33,10 @@ export function getParam(param) {
   return urlParams.get(param)
 }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false) {
   const htmlStrings = list.map(templateFn);
-  if (clear)  {parentElement.innerHTML = "";}
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  if (clear)  {parentElement.innerHTML = '';}
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 
 }
+
