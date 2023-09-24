@@ -154,6 +154,12 @@ button {
 .card__name {
   font-size: 1em;
 }
+
+.discount {
+  background-color: lightgreen;
+  padding:2px;
+  border-radius: 5px;
+}
 /* End product list card */
 
 .product-detail {
