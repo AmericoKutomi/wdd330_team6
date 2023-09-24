@@ -1,7 +1,7 @@
 import { renderListWithTemplate } from './utils.mjs';
 
 function productCardTemplate(product) {
-    const discount = product.FinalPrice / product.ListPrice
+    const discount = product.ListPrice / product.SuggestedRetailPrice 
     let percentOff = 0
     if(discount == 1){
         percentOff = ''
