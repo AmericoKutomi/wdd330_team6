@@ -1,25 +1,28 @@
 import { setArrLocalStorage } from './utils.mjs';
 
 function productDetailsTemplate(product) {
-  let productDetail = `<section class="product-detail">
+  const discount = product.ListPrice / product.SuggestedRetailPrice;
+  let percentOff = 0;
+  if(discount == 1){
+      percentOff = ''
+  }
+  else{
+      let percent = 100 - (Math.round(discount * 100));
+      percentOff = ` - <span class="discount">${percent}% off!</span>`;
+  }
+
+  return `<section class="product-detail">
     <h3>${product.Brand.Name}</h3>
     <h2>${product.NameWithoutBrand}</h2>
-    <img src="${product.Image}" alt="${product.NameWithoutBrand}" />`;
-  if (product.FinalPrice !== product.ListPrice) {
-    productDetail += `<p class="product-card__listprice">From $${product.ListPrice}</p>
-      <p class="product-card__price">To $${product.FinalPrice}</p>
-      <p class="product-card__percentageDiscount">${(1 - (parseFloat(product.FinalPrice) / parseFloat(product.FinalPrice))) * 100}% of discount</p>`;
-  }
-  else {
-    productDetail += `<p class="product-card__price">$${product.FinalPrice}</p>`;
-  }
-  productDetail += `<p class="product__color">${product.Colors[0].ColorName}</p>
+    <img src="${product.Image}" alt="${product.NameWithoutBrand}" />
+
+    <p class="product-card__price">$${product.FinalPrice}${percentOff}</p></a>
+    <p class="product__color">${product.Colors[0].ColorName}</p>
       <p class="product__description">${product.DescriptionHtmlSimple}</p>
       <div class="product-detail__add">
         <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
       </div>
     </section>`;  
-  return productDetail;
 }
 
 export default class ProductDetails {
