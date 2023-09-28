@@ -1,8 +1,12 @@
-import { getLocalStorage, setArrLocalStorage, setLocalStorage } from './utils.mjs';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+} from './utils.mjs';
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
-   
+
   const htmlItems = cartItems
     ? cartItems.map((item) => cartItemTemplate(item))
     : `<p><em>Your cart is empty</em></p>`;
@@ -10,10 +14,12 @@ function renderCartContents() {
   Array.isArray(htmlItems)
     ? (document.querySelector('.product-list').innerHTML = htmlItems.join(''))
     : (document.querySelector('.product-list').innerHTML = htmlItems);
-  
+
   //Adds event listener to each 'X'
   cartItems.forEach((item) => {
-    document.getElementById(item.Id).addEventListener('click', () => removeCartItem(item.Id));
+    document
+      .getElementById(item.Id)
+      .addEventListener('click', () => removeCartItem(item.Id));
   });
 }
 
@@ -24,29 +30,26 @@ function removeCartItem(id) {
     const item = cartItems[i];
     if (id === item.Id) {
       //Delete Item
-      cartItems.shift(cartItems[item])
+      cartItems.shift(cartItems[item]);
       //Update Local Storage
-      setLocalStorage('so-cart',cartItems);
+      setLocalStorage('so-cart', cartItems);
       renderCartContents();
-      return
+      return;
+    }
   }
-}
 
-  cartItems.forEach(item => {
+  cartItems.forEach((item) => {
     if (id === item.Id) {
-      let red = cartItems.pop(item)
-      console.log(red);
-      return
+      // let red = cartItems.pop(item);
+      // console.log(red);
+      return;
     }
 
-  console.log('hello');
-  setLocalStorage('so-cart',cartItems)
-  renderCartContents()
-
-  
+    // console.log('hello');
+    setLocalStorage('so-cart', cartItems);
+    renderCartContents();
   });
 }
-
 
 function cartItemTemplate(item) {
   const newItem = `<li class='cart-card divider'>
@@ -69,3 +72,4 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+loadHeaderFooter();
