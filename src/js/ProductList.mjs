@@ -1,37 +1,49 @@
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate } from './utils.mjs';
 
 function productCardTemplate(product) {
+    const discount = product.ListPrice / product.SuggestedRetailPrice 
+    let percentOff = 0
+    if(discount == 1){
+        percentOff = ''
+    }
+    else{
+        let percent = 100 - (Math.round(discount * 100));
+       
+        percentOff = ` - <span class="discount">${percent}% off!</span>`
+    }
     return `<li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
-    <img
-      src="${product.Image}"
-      alt="Image of ${product.Name}"
-    />
-    <h3 class="card__brand">${product.Brand.Name}</h3>
-    <h2 class="card__name">${product.Name}</h2>
-    <p class="product-card__price">$${product.FinalPrice}</p></a>
-  </li>`;
-  }
+  <a href="product_pages/index.html?product=${product.Id}">
+  <img
+    src="${product.Image}"
+    alt="Image of ${product.Name}"
+  />
+  <h3 class="card__brand">${product.Brand.Name}</h3>
+  <h2 class="card__name">${product.Name}</h2>
+  <p class="product-card__price">$${product.FinalPrice}${percentOff}</p></a>
+</li>`;
+}
 
-export default class ProductListing  {
-
-    constructor(category, datasource, listElement, homepage=true) {
+export default class ProductListing {
+    constructor(category, dataSource, listElement) {
         this.category = category;
-        this.datasource = datasource;
+        this.dataSource = dataSource;
         this.listElement = listElement;
-        this.homepage = homepage;
+        this.topList = [];
     }
 
     async init() {
-        const list = await this.datasource.getData()
-        if (this.homepage) {
-        this.renderList(list.filter((element) => ['344YJ','880RR','985PR','989CG'].includes(element.Id)));
+        const list = await this.dataSource.getData();
+        if (this.topList.length !== 0) {
+            this.renderList(list.filter((product) => this.topList.indexOf(product.Id) !== -1));
         } else {
             this.renderList(list);
         }
     }
-
-    renderList(list) {
+    async renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
+    }
+
+    setTopList(topProducts) {
+        this.topList = topProducts;
     }
 }
