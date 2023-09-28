@@ -1,14 +1,30 @@
-import { getLocalStorage, setArrLocalStorage, setLocalStorage } from './utils.mjs';
+import { getLocalStorage } from './utils.mjs';
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
+  const isEmpty = isCartEmpty(cartItems);
 
-  const htmlItems = cartItems ? cartItems.map((item) => cartItemTemplate(item))
+  const htmlItems = !isEmpty ? cartItems.map((item) => cartItemTemplate(item))
     : `<p><em>Your cart is empty</em></p>`;
   
-  Array.isArray(htmlItems) ? 
+  !isEmpty ?  
     document.querySelector(".product-list").innerHTML = htmlItems.join("")
     : document.querySelector(".product-list").innerHTML = htmlItems;
+
+  if (!isEmpty) document.querySelector('.products').innerHTML += cartTotalTemplate(getCartTotal(cartItems));
+
+  function isCartEmpty(cartList) {
+    return Object.is(cartList, null);
+  }
+  
+  function getCartTotal(cartItems) {
+    return cartItems.reduce((total, item) => (total + item.FinalPrice), 0)
+  }
+  
+  function cartTotalTemplate(amount) {
+    const total = `<div class="cart-footer hide"><p class="cart-total">Total: $${amount}</p></div>`;
+    return total;
+  }
 }
 
 function cartItemTemplate(item) {
