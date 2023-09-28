@@ -1,4 +1,8 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+} from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
 const domCartTotal = document.getElementById("cart-total");
@@ -13,7 +17,9 @@ function renderCartContents() {
 
    //Adds event listener to each 'X'
   cartItems.forEach((item) => {
-    document.getElementById(item.Id).addEventListener('click', () => removeCartItem(item.Id));
+    document
+      .getElementById(item.Id)
+      .addEventListener('click', () => removeCartItem(item.Id));
   });
 
   const cartTotalAmount = calculateCartTotal(cartItems);
@@ -36,27 +42,25 @@ function removeCartItem(id) {
     const item = cartItems[i];
     if (id === item.Id) {
       //Delete Item
-      cartItems.shift(cartItems[item])
+      cartItems.shift(cartItems[item]);
       //Update Local Storage
-      setLocalStorage('so-cart',cartItems);
+      setLocalStorage('so-cart', cartItems);
       renderCartContents();
-      return
+      return;
     }
   }
 
-  cartItems.forEach(item => {
+  cartItems.forEach((item) => {
     if (id === item.Id) {
-      let red = cartItems.pop(item)
-      console.log(red);
-      return
+      // let red = cartItems.pop(item);
+      // console.log(red);
+      return;
     }
 
-  setLocalStorage('so-cart',cartItems)
-  renderCartContents()
-
+  setLocalStorage('so-cart', cartItems);
+  renderCartContents();
   });
 }
-
 
 function cartItemTemplate(item) {
   const newItem = `<li class='cart-card divider'>
@@ -79,3 +83,4 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+loadHeaderFooter();
