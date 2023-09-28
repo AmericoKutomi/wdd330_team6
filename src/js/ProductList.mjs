@@ -39,7 +39,6 @@ export default class ProductListing {
             this.renderList(list);
         }
     }
-
     async renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
     }

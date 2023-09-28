@@ -7,6 +7,5 @@ const element = document.querySelector('.product-list');
 const products = new ProductList('tents', dataSource, element);
 products.setTopList(['880RR', '985RF', '985PR', '344YJ']);
 products.init();
-// console.log(products);
 
 loadHeaderFooter();
