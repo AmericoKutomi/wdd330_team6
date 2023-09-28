@@ -1,41 +1,32 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
+const productList = document.querySelector('.product-list');
+const domCartTotal = document.getElementById("cart-total");
+
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
   const isEmpty = isCartEmpty(cartItems);
-  const domProductList = document.querySelector('.product-list'); 
-   
-  const htmlItems = !isEmpty ? cartItems.map((item) => cartItemTemplate(item))
-    : `<p id="empty-cart"><em>Your cart is empty</em></p>`;
+  
+  !isEmpty ?
+    productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
+    : productList.innerHTML = ``;
 
-  !isEmpty
-    ? (domProductList.innerHTML = htmlItems.join(''))
-    : (domProductList.innerHTML = htmlItems);
-  
-  if (!isEmpty) {
-    document.querySelector('.products').innerHTML += cartTotalTemplate(getCartTotal(cartItems))
-  } else {
-      const cartTotal = document.getElementById("cart-total");
-      document.querySelector('.cart-footer').removeChild(cartTotal);
-    };
-  
-  //Adds event listener to each 'X'
+   //Adds event listener to each 'X'
   cartItems.forEach((item) => {
     document.getElementById(item.Id).addEventListener('click', () => removeCartItem(item.Id));
   });
+
+  const cartTotalAmount = calculateCartTotal(cartItems);
+
+  domCartTotal.innerHTML = !cartTotalAmount == 0 ? `Cart Total: $${cartTotalAmount}` : `<em>Your Cart is Empty</em>`;
+}
+
+function calculateCartTotal(cartItems) {
+  return cartItems.reduce((total, item) => (total + item.FinalPrice), 0);
 }
 
 function isCartEmpty(cartList) {
   return Object.is(cartList, null) || cartList.length === 0;
-}
-
-function getCartTotal(cartItems) {
-  return cartItems.reduce((total, item) => (total + item.FinalPrice), 0)
-}
-
-function cartTotalTemplate(amount) {
-  const total = `<div class="cart-footer hide"><p id="cart-total">Total: $${amount}</p></div>`;
-  return total;
 }
 
 function removeCartItem(id) {
@@ -50,8 +41,8 @@ function removeCartItem(id) {
       setLocalStorage('so-cart',cartItems);
       renderCartContents();
       return
+    }
   }
-}
 
   cartItems.forEach(item => {
     if (id === item.Id) {
@@ -63,7 +54,6 @@ function removeCartItem(id) {
   setLocalStorage('so-cart',cartItems)
   renderCartContents()
 
-  
   });
 }
 
