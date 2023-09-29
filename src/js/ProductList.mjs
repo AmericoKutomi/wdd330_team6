@@ -32,7 +32,7 @@ export default class ProductListing {
     }
 
     async init() {
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         if (this.topList.length !== 0) {
             this.renderList(list.filter((product) => this.topList.indexOf(product.Id) !== -1));
         } else {
