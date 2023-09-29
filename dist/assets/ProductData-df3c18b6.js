@@ -1,1 +1,0 @@
-const e="http://server-nodejs.cit.byui.edu:3000/";function r(t){if(t.ok)return t.json();throw new Error("Bad Response")}class c{constructor(){}async getData(a){const s=await fetch(e+`products/search/${a}`);return(await r(s)).Result}async findProductById(a){const s=await fetch(e+`products/search/${a}`);return(await r(s)).Result}}export{c as P};

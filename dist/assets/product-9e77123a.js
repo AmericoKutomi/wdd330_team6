@@ -1,4 +1,4 @@
-import{a as r,b as o,l as d}from"./utils-edcc6eb7.js";/* empty css              */import{P as s}from"./ProductData-df3c18b6.js";function i(t){const e=t.ListPrice/t.SuggestedRetailPrice;let a=0;return e==1?a="":a=` - <span class="discount">${100-Math.round(e*100)}% off!</span>`,`<section class="product-detail">
+import{a as r,b as o,l as d}from"./utils-edcc6eb7.js";/* empty css              */import{P as s}from"./ProductData-da6f9863.js";function i(t){const e=t.ListPrice/t.SuggestedRetailPrice;let a=0;return e==1?a="":a=` - <span class="discount">${100-Math.round(e*100)}% off!</span>`,`<section class="product-detail">
     <h3>${t.Brand.Name}</h3>
     <h2>${t.NameWithoutBrand}</h2>
     <img src="${t.Images.PrimaryLarge}" alt="${t.NameWithoutBrand}" />
