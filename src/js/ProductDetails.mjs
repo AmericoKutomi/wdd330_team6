@@ -1,6 +1,7 @@
 import { setArrLocalStorage } from './utils.mjs';
 
 function productDetailsTemplate(product) {
+  
   const discount = product.ListPrice / product.SuggestedRetailPrice;
   let percentOff = 0;
   if(discount == 1){
@@ -14,7 +15,7 @@ function productDetailsTemplate(product) {
   return `<section class="product-detail">
     <h3>${product.Brand.Name}</h3>
     <h2>${product.NameWithoutBrand}</h2>
-    <img src="${product.Image}" alt="${product.NameWithoutBrand}" />
+    <img src="${product.Images.PrimaryLarge}" alt="${product.NameWithoutBrand}" />
 
     <p class="product-card__price">$${product.FinalPrice}${percentOff}</p></a>
     <p class="product__color">${product.Colors[0].ColorName}</p>
