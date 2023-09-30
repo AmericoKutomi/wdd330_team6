@@ -5,7 +5,7 @@ import {
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
-const domCartTotal = document.getElementById("cart-total");
+const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
@@ -14,6 +14,7 @@ function renderCartContents() {
   if (!isEmpty) {
     productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
 
+    //Adds event listener to each 'X'
     cartItems.forEach((item) => {
       document
         .getElementById(item.Id)
@@ -23,18 +24,14 @@ function renderCartContents() {
     productList.innerHTML = ``;
   }
 
-   //Adds event listener to each 'X'
-  
-
   const cartTotalAmount = calculateCartTotal(cartItems);
-
-  domCartTotal.innerHTML = !cartTotalAmount == 0 ? `Cart Total: $${cartTotalAmount}` : `<em>Your Cart is Empty</em>`;
+  domCartTotal.innerHTML = !cartTotalAmount === 0 ? `Cart Total: $${cartTotalAmount}` : `<em>Your Cart is Empty</em>`;
 }
 
 function calculateCartTotal(cartItems) {
-   let total = 0
+  let total = 0
   if (cartItems) {
-    total = cartItems.reduce((total, item) => (total + item.FinalPrice), 0);
+    total = cartItems.reduce((acc, item) => (acc + item.FinalPrice), 0);
   }
 
   return total
