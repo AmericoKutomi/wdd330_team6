@@ -2,6 +2,7 @@ import {
   getLocalStorage,
   setLocalStorage,
   loadHeaderFooter,
+  isListEmpty,
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
@@ -9,7 +10,7 @@ const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
-  const isEmpty = isCartEmpty(cartItems);
+  const isEmpty = isListEmpty(cartItems);
   
   if (!isEmpty) {
     productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
@@ -35,10 +36,6 @@ function calculateCartTotal(cartItems) {
   }
 
   return total
-}
-
-function isCartEmpty(cartList) {
-  return Object.is(cartList, null) || cartList.length === 0;
 }
 
 function removeCartItem(id) {

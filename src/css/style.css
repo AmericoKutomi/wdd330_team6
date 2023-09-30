@@ -22,6 +22,7 @@ body {
   font-size: var(--font-base);
   color: var(--dark-grey);
 }
+
 img {
   max-width: 100%;
 }
@@ -221,6 +222,23 @@ button {
 
 .product-detail img {
   width: 100%;
+}
+
+/* Start of Product Alert styles*/
+
+.alert-list {
+  display: grid;
+  contain: size layout;
+  margin: 10px;
+}
+
+.alert-card {
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 /* Start cart list card styles */

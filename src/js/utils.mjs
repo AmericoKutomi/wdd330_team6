@@ -47,6 +47,12 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 }
 
+export function renderHtmlWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false,) {
+  const htmlStrings = list.map(templateFn);
+  if (clear)  {parentElement.innerHTML = '';}
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
+
 export async function loadHeaderFooter() {
   const headerTemplate = await loadTemplate('../partials/header.html');
   const footerTemplate = await loadTemplate('../partials/footer.html');
@@ -60,4 +66,8 @@ export async function loadTemplate(path) {
   const response = await fetch(path);
   const template = await response.text();
   return template;
+}
+
+export function isListEmpty(list) {
+  return Object.is(list, null) || list.length === 0;
 }
