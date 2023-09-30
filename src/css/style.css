@@ -198,6 +198,20 @@ button {
 .cart:hover svg {
   fill: gray;
 }
+#superScript{
+  height: 10px;
+  width: 10px;
+  background: #f0a868;
+  padding: 3px;
+  border-radius: 50%;
+  border: 1px solid #f0a868;
+  font-size: .65rem;
+  position: relative;
+  left:30px;
+  top: -20px;
+  text-align: center;
+}
+
 
 /* End cart icon styles */
 

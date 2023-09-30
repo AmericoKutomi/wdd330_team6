@@ -1,4 +1,4 @@
-import { setArrLocalStorage } from './utils.mjs';
+import { checkCart, setArrLocalStorage,  } from './utils.mjs';
 
 function productDetailsTemplate(product) {
   
@@ -40,6 +40,7 @@ export default class ProductDetails {
   }
   addToCart() {
     setArrLocalStorage('so-cart', this.product);
+    checkCart();
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);

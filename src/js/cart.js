@@ -2,20 +2,21 @@ import {
   getLocalStorage,
   setLocalStorage,
   loadHeaderFooter,
+  checkCart,
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
 const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart');
+  const cartItems = getLocalStorage('so-cart') || [];
   const isEmpty = isCartEmpty(cartItems);
-  
+
   !isEmpty ?
     productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
     : productList.innerHTML = ``;
 
-   //Adds event listener to each 'X'
+  //Adds event listener to each 'X'
   cartItems.forEach((item) => {
     document
       .getElementById(item.Id)
@@ -46,6 +47,7 @@ function removeCartItem(id) {
       //Update Local Storage
       setLocalStorage('so-cart', cartItems);
       renderCartContents();
+      checkCart();
       return;
     }
   }
@@ -57,8 +59,8 @@ function removeCartItem(id) {
       return;
     }
 
-  setLocalStorage('so-cart', cartItems);
-  renderCartContents();
+    setLocalStorage('so-cart', cartItems);
+    renderCartContents();
   });
 }
 
@@ -67,7 +69,7 @@ function cartItemTemplate(item) {
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>
     <img
-      src='${item.Image}'
+      src='${item.Images.PrimarySmall}'
       alt='${item.Name}'
     />
   </a>
