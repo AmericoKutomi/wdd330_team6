@@ -112,7 +112,7 @@ button {
 
 /* End cart icon styles */
 
-/* Product Grid Styles */
+/* Product Listing Styles */
 .product-grid {
   list-style-type: none;
   display: flex;
@@ -147,7 +147,15 @@ button {
   text-decoration: underline;
 }
 
-/* End of Product Grid Styles */
+.sort-area {
+  display: flex;
+}
+.sort-button {
+  display: inline-block;
+  font-size: var(--small-font);
+}
+
+/* End of Product Listing Styles */
 
 .mission {
   padding: 0 0.5em;
