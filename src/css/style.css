@@ -128,6 +128,51 @@ button {
 
 /* End cart icon styles */
 
+/* Product Listing Styles */
+.product-grid {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  color: var(--dark-grey);
+  padding-left: 0;
+}
+
+.product-grid > li {
+  width: 150px;
+  padding: 0.5em;
+  margin: 1em;
+}
+
+.product-grid h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.product-grid a {
+  text-decoration: none;
+}
+
+.product-grid a:link,
+.product-grid a:visited {
+  color: var(--dark-grey);
+}
+
+.product-grid a:hover {
+  text-decoration: underline;
+}
+
+.sort-area {
+  display: flex;
+}
+.sort-button {
+  display: inline-block;
+  font-size: var(--small-font);
+}
+
+/* End of Product Listing Styles */
+
 .mission {
   padding: 0 0.5em;
   /* margin: 0.5em 0; */

@@ -38,12 +38,32 @@ export default class ProductListing {
         } else {
             this.renderList(list);
         }
+        document.querySelector('.title').innerHTML = this.category;
     }
-    async renderList(list) {
-        renderListWithTemplate(productCardTemplate, this.listElement, list);
+    async renderList(list, clear = false) {
+        renderListWithTemplate(productCardTemplate, this.listElement, list, 'afterbegin', clear);
     }
 
     setTopList(topProducts) {
         this.topList = topProducts;
+    }
+
+    async sortBy(order_field) {
+        const list = await this.dataSource.getData(this.category);
+        let sortedList = [];
+        if (order_field == 'name') {
+            sortedList = list.sort( function(a,b) {
+                let aName = a.Name.toLowerCase();
+                let bName = b.Name.toLowerCase();
+                if(aName > bName){return 1;}
+                if(aName < bName){return -1;}
+                return 0;
+            })
+        } else if (order_field == 'price') {
+            sortedList = list.sort( function(a,b) {
+                return a.FinalPrice - b.FinalPrice;
+            });
+        };
+        this.renderList(sortedList, true);
     }
 }

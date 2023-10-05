@@ -10,12 +10,12 @@ const domCartTotal = document.getElementById('cart-total');
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
   const isEmpty = isCartEmpty(cartItems);
-  
-  !isEmpty ?
-    productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
-    : productList.innerHTML = ``;
 
-   //Adds event listener to each 'X'
+  !isEmpty
+    ? (productList.innerHTML = cartItems.map((item) => cartItemTemplate(item)))
+    : (productList.innerHTML = ``);
+
+  //Adds event listener to each 'X'
   cartItems.forEach((item) => {
     document
       .getElementById(item.Id)
@@ -24,11 +24,14 @@ function renderCartContents() {
 
   const cartTotalAmount = calculateCartTotal(cartItems);
 
-  domCartTotal.innerHTML = !cartTotalAmount == 0 ? `Cart Total: $${cartTotalAmount}` : `<em>Your Cart is Empty</em>`;
+  domCartTotal.innerHTML =
+    !cartTotalAmount == 0
+      ? `Cart Total: $${cartTotalAmount}`
+      : `<em>Your Cart is Empty</em>`;
 }
 
 function calculateCartTotal(cartItems) {
-  return cartItems.reduce((total, item) => (total + item.FinalPrice), 0);
+  return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
 }
 
 function isCartEmpty(cartList) {
@@ -57,8 +60,8 @@ function removeCartItem(id) {
       return;
     }
 
-  setLocalStorage('so-cart', cartItems);
-  renderCartContents();
+    setLocalStorage('so-cart', cartItems);
+    renderCartContents();
   });
 }
 
