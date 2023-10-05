@@ -5,7 +5,7 @@ import {
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
-const domCartTotal = document.getElementById("cart-total");
+const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');

@@ -1,4 +1,4 @@
-import { setArrLocalStorage } from './utils.mjs';
+import { setArrLocalStorage, getLocalStorage } from './utils.mjs';
 
 function productDetailsTemplate(product) {
   const discount = product.ListPrice / product.SuggestedRetailPrice;
@@ -24,7 +24,9 @@ function productDetailsTemplate(product) {
       </div>
     </section>`;  
 }
-
+  function isCartEmpty(cartList) {
+    return Object.is(cartList, null) || cartList.length === 0;
+  }
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
@@ -37,8 +39,24 @@ export default class ProductDetails {
     document.getElementById('addToCart')
         .addEventListener('click', () => this.addToCart());
   }
+
   addToCart() {
-    setArrLocalStorage('so-cart', this.product);
+    const cartItems = getLocalStorage('so-cart');
+    const isEmpty = isCartEmpty(cartItems);
+    // console.log(isEmpty);
+    if (isEmpty) {
+      // console.log(cartItems);
+      setArrLocalStorage('so-cart', this.product);
+      // console.log(getLocalStorage('so-cart'));
+      return;};
+
+    cartItems.forEach(item => {
+      if (this.productId == item['Id']){
+        // console.log('already in array');
+      } else {
+        setArrLocalStorage('so-cart', this.product);
+      }
+    });
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
