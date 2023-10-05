@@ -5,7 +5,7 @@ import {
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
-const domCartTotal = document.getElementById("cart-total");
+const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
@@ -63,11 +63,12 @@ function removeCartItem(id) {
 }
 
 function cartItemTemplate(item) {
+  console.log(item);
   const newItem = `<li class='cart-card divider'>
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>
     <img
-      src='${item.Image}'
+      src='${item.Images.PrimarySmall}'
       alt='${item.Name}'
     />
   </a>
@@ -75,7 +76,7 @@ function cartItemTemplate(item) {
     <h2 class='card__name'>${item.Name}</h2>
   </a>
   <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
-  <p class='cart-card__quantity'>qty: 1</p>
+  <p class='cart-card__quantity'>qty: ${item.count}</p>
   <p class='cart-card__price'>$${item.FinalPrice}</p>
 </li>`;
 
