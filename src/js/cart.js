@@ -2,6 +2,7 @@ import {
   getLocalStorage,
   setLocalStorage,
   loadHeaderFooter,
+  calculateCartTotal,
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
@@ -28,10 +29,6 @@ function renderCartContents() {
     !cartTotalAmount == 0
       ? `Cart Total: $${cartTotalAmount}`
       : `<em>Your Cart is Empty</em>`;
-}
-
-function calculateCartTotal(cartItems) {
-  return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
 }
 
 function isCartEmpty(cartList) {

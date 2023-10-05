@@ -61,3 +61,11 @@ export async function loadTemplate(path) {
   const template = await response.text();
   return template;
 }
+
+export function calculateCartTotal(cartItems) {
+  let total = 0
+  if (cartItems) {
+    total = cartItems.reduce((acc, item) => (acc + item.FinalPrice), 0);
+  }
+  return total
+}
