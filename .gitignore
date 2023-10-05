@@ -5,3 +5,4 @@ dist
 web_modules
 node_modules
 .env
+dist

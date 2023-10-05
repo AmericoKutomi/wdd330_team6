@@ -12,9 +12,11 @@ function renderCartContents() {
   const cartItems = getLocalStorage('so-cart') || [];
   const isEmpty = isCartEmpty(cartItems);
 
-  !isEmpty ?
-    productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
-    : productList.innerHTML = ``;
+
+  !isEmpty
+    ? (productList.innerHTML = cartItems.map((item) => cartItemTemplate(item)))
+    : (productList.innerHTML = ``);
+
 
   //Adds event listener to each 'X'
   cartItems.forEach((item) => {
@@ -25,11 +27,14 @@ function renderCartContents() {
 
   const cartTotalAmount = calculateCartTotal(cartItems);
 
-  domCartTotal.innerHTML = !cartTotalAmount == 0 ? `Cart Total: $${cartTotalAmount}` : `<em>Your Cart is Empty</em>`;
+  domCartTotal.innerHTML =
+    !cartTotalAmount == 0
+      ? `Cart Total: $${cartTotalAmount}`
+      : `<em>Your Cart is Empty</em>`;
 }
 
 function calculateCartTotal(cartItems) {
-  return cartItems.reduce((total, item) => (total + item.FinalPrice), 0);
+  return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
 }
 
 function isCartEmpty(cartList) {
@@ -65,6 +70,7 @@ function removeCartItem(id) {
 }
 
 function cartItemTemplate(item) {
+  console.log(item);
   const newItem = `<li class='cart-card divider'>
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>
@@ -77,7 +83,7 @@ function cartItemTemplate(item) {
     <h2 class='card__name'>${item.Name}</h2>
   </a>
   <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
-  <p class='cart-card__quantity'>qty: 1</p>
+  <p class='cart-card__quantity'>qty: ${item.count}</p>
   <p class='cart-card__price'>$${item.FinalPrice}</p>
 </li>`;
 
