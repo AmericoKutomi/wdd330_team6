@@ -6,11 +6,11 @@ loadHeaderFooter();
 const myCheckout = new CheckoutProcess("so-cart", ".checkout-summary");
 myCheckout.init();
 
-document.querySelector("#zip")
+document
+  .querySelector("#zip")
   .addEventListener("blur", myCheckout.calculateOrderTotal.bind(myCheckout));
-
-document.querySelector("#checkoutSubmit").addEventListener("click", (event) => {
-  event.preventDefault();
+document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+  e.preventDefault();
 
   myCheckout.checkout();
 });

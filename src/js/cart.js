@@ -4,6 +4,7 @@ import {
   loadHeaderFooter,
   calculateCartTotal,
   isListEmpty,
+  checkCart,
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
@@ -45,13 +46,13 @@ function removeCartItem(id) {
       //Update Local Storage
       setLocalStorage('so-cart', cartItems);
       renderCartContents();
+      checkCart();
       return;
     }
   }
 }
 
 function cartItemTemplate(item) {
-  console.log(item);
   const newItem = `<li class='cart-card divider'>
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>
