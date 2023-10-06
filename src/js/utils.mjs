@@ -60,12 +60,27 @@ export async function loadHeaderFooter() {
   const footerElement = document.querySelector('#main-footer');
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+  checkCart();
+}
+export function checkCart(){
+  const superScript = document.getElementById('superScript');
+  const cartItems = getLocalStorage('so-cart') || [];
+  const itemCount = cartItems.length
+  superScript.textContent = itemCount;
 }
 
 export async function loadTemplate(path) {
   const response = await fetch(path);
   const template = await response.text();
   return template;
+}
+
+export function calculateCartTotal(cartItems) {
+  let total = 0
+  if (cartItems) {
+    total = cartItems.reduce((acc, item) => (acc + item.FinalPrice), 0);
+  }
+  return total;
 }
 
 export function isListEmpty(list) {

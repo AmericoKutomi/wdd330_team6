@@ -2,7 +2,9 @@ import {
   getLocalStorage,
   setLocalStorage,
   loadHeaderFooter,
+  calculateCartTotal,
   isListEmpty,
+  checkCart,
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
@@ -11,7 +13,7 @@ const domCartTotal = document.getElementById('cart-total');
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
   const isEmpty = isListEmpty(cartItems);
-  
+
   if (!isEmpty) {
     productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
 
@@ -26,16 +28,11 @@ function renderCartContents() {
   }
 
   const cartTotalAmount = calculateCartTotal(cartItems);
-  domCartTotal.innerHTML = !cartTotalAmount === 0 ? `Cart Total: $${cartTotalAmount}` : `<em>Your Cart is Empty</em>`;
-}
 
-function calculateCartTotal(cartItems) {
-  let total = 0
-  if (cartItems) {
-    total = cartItems.reduce((acc, item) => (acc + item.FinalPrice), 0);
-  }
-
-  return total
+  domCartTotal.innerHTML =
+    !cartTotalAmount == 0
+      ? `Cart Total: $${cartTotalAmount.toFixed(2)}`
+      : `<em>Your Cart is Empty</em>`;
 }
 
 function removeCartItem(id) {
@@ -49,20 +46,10 @@ function removeCartItem(id) {
       //Update Local Storage
       setLocalStorage('so-cart', cartItems);
       renderCartContents();
+      checkCart();
       return;
     }
   }
-
-  cartItems.forEach((item) => {
-    if (id === item.Id) {
-      // let red = cartItems.pop(item);
-      // console.log(red);
-      return;
-    }
-
-  setLocalStorage('so-cart', cartItems);
-  renderCartContents();
-  });
 }
 
 function cartItemTemplate(item) {
@@ -70,7 +57,7 @@ function cartItemTemplate(item) {
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>
     <img
-      src='${item.Image}'
+      src='${item.Images.PrimarySmall}'
       alt='${item.Name}'
     />
   </a>
@@ -78,7 +65,7 @@ function cartItemTemplate(item) {
     <h2 class='card__name'>${item.Name}</h2>
   </a>
   <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
-  <p class='cart-card__quantity'>qty: 1</p>
+  <p class='cart-card__quantity'>qty: ${item.count}</p>
   <p class='cart-card__price'>$${item.FinalPrice}</p>
 </li>`;
 
