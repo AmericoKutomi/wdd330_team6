@@ -47,6 +47,12 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 }
 
+export function renderHtmlWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false,) {
+  const htmlStrings = list.map(templateFn);
+  if (clear)  {parentElement.innerHTML = '';}
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
+
 export async function loadHeaderFooter() {
   const headerTemplate = await loadTemplate('../partials/header.html');
   const footerTemplate = await loadTemplate('../partials/footer.html');
