@@ -1,6 +1,9 @@
-import { setArrLocalStorage, setLocalStorage, getLocalStorage } from './utils.mjs';
+
+import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart } from './utils.mjs';
+
 
 function productDetailsTemplate(product) {
+  
   const discount = product.ListPrice / product.SuggestedRetailPrice;
   let percentOff = 0;
   if (discount == 1) {
@@ -42,6 +45,8 @@ export default class ProductDetails {
   }
 
   addToCart() {
+    checkCart();
+
     const cartItems = getLocalStorage('so-cart');
     const isEmpty = isCartEmpty(cartItems);
 
@@ -74,7 +79,6 @@ export default class ProductDetails {
       setArrLocalStorage('so-cart', this.product);
     }
     // if cartItems. 
-
 
   }
   renderProductDetails(selector) {

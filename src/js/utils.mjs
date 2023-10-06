@@ -54,6 +54,15 @@ export async function loadHeaderFooter() {
   const footerElement = document.querySelector('#main-footer');
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+  checkCart();
+}
+export function checkCart(){
+  const superScript = document.getElementById('superScript');
+  const cartItems = getLocalStorage('so-cart') || [];
+  const itemCount = cartItems.length
+  superScript.textContent = itemCount;
+  console.log(superScript.textContent);
+  
 }
 
 export async function loadTemplate(path) {

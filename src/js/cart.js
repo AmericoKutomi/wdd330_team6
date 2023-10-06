@@ -3,18 +3,21 @@ import {
   setLocalStorage,
   loadHeaderFooter,
   calculateCartTotal,
+  checkCart,
 } from './utils.mjs';
 
 const productList = document.querySelector('.product-list');
 const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart');
+  const cartItems = getLocalStorage('so-cart') || [];
   const isEmpty = isCartEmpty(cartItems);
+
 
   !isEmpty
     ? (productList.innerHTML = cartItems.map((item) => cartItemTemplate(item)))
     : (productList.innerHTML = ``);
+
 
   //Adds event listener to each 'X'
   cartItems.forEach((item) => {
@@ -46,6 +49,7 @@ function removeCartItem(id) {
       //Update Local Storage
       setLocalStorage('so-cart', cartItems);
       renderCartContents();
+      checkCart();
       return;
     }
   }
