@@ -67,5 +67,9 @@ export function calculateCartTotal(cartItems) {
   if (cartItems) {
     total = cartItems.reduce((acc, item) => (acc + item.FinalPrice), 0);
   }
-  return total
+  return total;
+}
+
+export function isListEmpty(list) {
+  return Object.is(list, null) || list.length === 0;
 }
