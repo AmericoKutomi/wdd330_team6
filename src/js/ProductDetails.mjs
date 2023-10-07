@@ -1,5 +1,4 @@
-
-import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart } from './utils.mjs';
+import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart, alertMessage } from './utils.mjs';
 
 
 function productDetailsTemplate(product) {
@@ -55,6 +54,7 @@ export default class ProductDetails {
       // console.log(cartItems);
       this.product.count = 1;
       setArrLocalStorage('so-cart', this.product);
+      alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
       // console.log(getLocalStorage('so-cart'));
       return;
     }
@@ -69,6 +69,7 @@ export default class ProductDetails {
 
         //Update Local Storage
         setLocalStorage('so-cart', cartItems);
+        alertMessage(`${this.product.NameWithoutBrand}: one more added to the quantity!`);
         // console.log(getLocalStorage('so-cart'));
         return;
       }
@@ -77,6 +78,7 @@ export default class ProductDetails {
     if (!found) {
       this.product.count = 1;
       setArrLocalStorage('so-cart', this.product);
+      alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
     // if cartItems. 
 

@@ -25,7 +25,6 @@ body {
   color: var(--dark-grey);
 }
 
-
 img {
   max-width: 100%;
 }
@@ -86,7 +85,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -278,6 +277,19 @@ header {
   width: 100%;
 }
 
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
+}
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
@@ -314,20 +326,19 @@ button {
 .cart:hover svg {
   fill: gray;
 }
-#superScript{
+#superScript {
   height: 10px;
   width: 10px;
   background: #f0a868;
   padding: 3px;
   border-radius: 50%;
   border: 1px solid #f0a868;
-  font-size: .65rem;
+  font-size: 0.65rem;
   position: relative;
-  left:30px;
+  left: 30px;
   top: -20px;
   text-align: center;
 }
-
 
 /* End cart icon styles */
 
@@ -478,7 +489,7 @@ button {
 
 .alert-card {
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: space-between;
   margin: 5px;
   border-radius: 5px;
@@ -569,7 +580,6 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
-
   }
 
   footer {
