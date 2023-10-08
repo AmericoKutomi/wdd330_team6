@@ -25,7 +25,6 @@ body {
   color: var(--dark-grey);
 }
 
-
 img {
   max-width: 100%;
 }
@@ -86,7 +85,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -314,20 +313,19 @@ button {
 .cart:hover svg {
   fill: gray;
 }
-#superScript{
+#superScript {
   height: 10px;
   width: 10px;
   background: #f0a868;
   padding: 3px;
   border-radius: 50%;
   border: 1px solid #f0a868;
-  font-size: .65rem;
+  font-size: 0.65rem;
   position: relative;
-  left:30px;
+  left: 30px;
   top: -20px;
   text-align: center;
 }
-
 
 /* End cart icon styles */
 
@@ -375,6 +373,73 @@ button {
 }
 
 /* End of Product Listing Styles */
+
+/* Product Detail Carousel */
+
+.container {
+  margin: 0 auto;
+  position: relative;
+  padding: 15px;
+  max-width: 320px;
+
+  max-height: 500px;
+  box-sizing: border-box;
+}
+
+.gallery-wrapper {
+  overflow-x: auto;
+  overflow: hidden;
+}
+
+.gallery {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 15px;
+}
+
+.arrow-left,
+.arrow-right {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  font-size: 20px;
+  line-height: 250px;
+  width: 40px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to left, transparent 0%, black 200%);
+  opacity: 0.3;
+  transition: all 600ms ease-in-out;
+}
+
+.arrow-right {
+  left: auto;
+  right: 0;
+  background: linear-gradient(to right, transparent 0%, black 200%);
+}
+
+.arrow-left:hover,
+.arrow-right:hover {
+  opacity: 1;
+}
+
+.item {
+  max-width: 320px;
+  max-height: 400px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: all 600ms ease-in-out;
+}
+
+.current-item {
+  opacity: 1;
+}
+
+/* end of Product Detail Carousel */
 
 .mission {
   padding: 0 0.5em;
@@ -478,7 +543,7 @@ button {
 
 .alert-card {
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: space-between;
   margin: 5px;
   border-radius: 5px;
@@ -569,7 +634,6 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
-
   }
 
   footer {
