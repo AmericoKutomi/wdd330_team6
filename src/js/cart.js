@@ -70,7 +70,7 @@ function removeCartItem(id) {
 }
 
 function cartItemTemplate(item) {
-  console.log(item);
+  // console.log(item);
   const newItem = `<li class='cart-card divider'>
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>

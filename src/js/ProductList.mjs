@@ -54,7 +54,7 @@ export default class ProductListing {
         const list = await this.dataSource.getData(this.category);
         let sortedList = [];
         if (order_field == 'name') {
-            sortedList = list.sort( function(a,b) {
+            sortedList = list.sort(function(a,b) {
                 let aName = a.Name.toLowerCase();
                 let bName = b.Name.toLowerCase();
                 if(aName > bName){return 1;}
@@ -62,7 +62,7 @@ export default class ProductListing {
                 return 0;
             })
         } else if (order_field == 'price') {
-            sortedList = list.sort( function(a,b) {
+            sortedList = list.sort(function(a,b) {
                 return a.FinalPrice - b.FinalPrice;
             });
         };

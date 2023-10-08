@@ -59,10 +59,12 @@ export async function loadHeaderFooter() {
 export function checkCart(){
   const superScript = document.getElementById('superScript');
   const cartItems = getLocalStorage('so-cart') || [];
-  const itemCount = cartItems.length
-  superScript.textContent = itemCount;
-  console.log(superScript.textContent);
-  
+  let amount = 0;
+  for (let i = 0; i < cartItems.length; i++) {
+    const counted = cartItems[i].count;
+    amount += counted;
+  }
+  superScript.textContent = amount; 
 }
 
 export async function loadTemplate(path) {
