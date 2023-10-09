@@ -25,7 +25,7 @@ sortByNameElement.addEventListener('click', () => products.sortBy('name'));
 const sortByPriceElement = document.querySelector('#sortByPrice');
 sortByPriceElement.addEventListener('click', () => products.sortBy('price'));
 
-const mainDivider = document.querySelector("main");
+const mainDivider = document.querySelector('main');
 const alerts = new SystemAlert(mainDivider);
 alerts.init();
 

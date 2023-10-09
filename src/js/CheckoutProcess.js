@@ -1,6 +1,6 @@
 import { getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices';
-import { UserAlert } from "./alert";
+import { UserAlert } from './alert';
 
 const extServices = new ExternalServices();
 function dataToJson(formElement) {
@@ -82,7 +82,7 @@ export default class CheckoutProcess {
     }
 
     async checkout() {
-        const formElement = document.forms["checkout"];
+        const formElement = document.forms['checkout'];
 
         const json = dataToJson(formElement);
         // add totals, and item details
@@ -93,14 +93,17 @@ export default class CheckoutProcess {
         json.items = packageItems(this.list);
         try {
             const res = await extServices.checkout(json);
+
             this.checkoutAlert.render({message: res.message});
             console.log(res);
+
         } catch (err) {
             console.log(err);
+
             this.checkoutAlert.render({
-                message: "Incorrect Information Recieved",
-                background: "white",
-                color: "red"
+                message: 'Incorrect Information Recieved',
+                background: 'white',
+                color: 'red'
             });
         }
     }
