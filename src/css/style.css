@@ -25,6 +25,9 @@ body {
   color: var(--dark-grey);
 }
 
+main {
+  position: relative;
+}
 
 img {
   max-width: 100%;
@@ -483,18 +486,29 @@ button {
 /* Start of Product Alert styles*/
 
 .alert-list {
-  display: grid;
-  contain: size layout;
-  margin: 10px;
+  position: fixed;
+  gap: 1em;
+  top: 0;
+  left: 0;
+  margin-top: .2em;
+  width: 100%;
 }
 
 .alert-card {
   display: flex;
+  gap: 2em;
   align-items:center;
   justify-content: space-between;
-  margin: 5px;
   border-radius: 5px;
   padding: 10px;
+  border-style:solid;
+  border-width: .2em;
+  margin-bottom: .5em;
+  user-select: none;
+}
+
+.alert-card-close {
+  cursor: pointer;
 }
 
 /* Start cart list card styles */

@@ -11,6 +11,6 @@ document
   .addEventListener("blur", myCheckout.calculateOrderTotal.bind(myCheckout));
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
   e.preventDefault();
-
+  
   myCheckout.checkout();
 });

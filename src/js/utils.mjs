@@ -47,10 +47,16 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 }
 
-export function renderHtmlWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false,) {
-  const htmlStrings = list.map(templateFn);
+export function renderHtmlWithTemplate(templateFn, parentElement, Alerts, position = 'afterbegin', clear = false,) {
   if (clear)  {parentElement.innerHTML = '';}
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+
+  if (Array.isArray(Alerts)) {
+    var htmlStrings = Alerts.map(templateFn).join('');
+  } else {
+    var htmlStrings = templateFn(Alerts);
+  }
+
+  parentElement.insertAdjacentHTML(position, htmlStrings);
 }
 
 export async function loadHeaderFooter() {
