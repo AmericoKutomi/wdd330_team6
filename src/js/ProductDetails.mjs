@@ -1,6 +1,6 @@
 
 import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart } from './utils.mjs';
-
+import { UserAlert } from './alert';
 
 function productDetailsTemplate(product) {
   
@@ -36,15 +36,16 @@ export default class ProductDetails {
     this.product = {};
     this.dataSource = dataSource;
     this.product.count = 0;
+    this.addToCartAlert = new UserAlert(document.querySelector('main'));
   }
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails('main');
     document.getElementById('addToCart')
-      .addEventListener('click', () => this.addToCart());
+      .addEventListener('click', (event) => this.addToCart(event));
   }
 
-  addToCart() {
+  addToCart(event) {
     checkCart();
 
     const cartItems = getLocalStorage('so-cart');
@@ -78,7 +79,12 @@ export default class ProductDetails {
       this.product.count = 1;
       setArrLocalStorage('so-cart', this.product);
     }
-    // if cartItems. 
+
+    this.addToCartAlert.render({
+      message: `Added ${event.target.parentNode.parentNode.querySelector("h3").innerText} to cart`,
+      background: "white",
+      color: "blue"
+  });
 
   }
   renderProductDetails(selector) {
