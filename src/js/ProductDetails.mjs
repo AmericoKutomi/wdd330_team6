@@ -1,5 +1,5 @@
-import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart, alertMessage } from './utils.mjs';
-
+import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart } from './utils.mjs';
+import { UserAlert } from './alert';
 
 function productDetailsTemplate(product) {
   
@@ -64,58 +64,17 @@ export default class ProductDetails {
     this.product = {};
     this.dataSource = dataSource;
     this.product.count = 0;
-    this.currentItem = 0;
-    this.maxItems = 0;
+    this.addToCartAlert = new UserAlert(document.querySelector('main'));
   }
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails('main');
     document.getElementById('addToCart')
-      .addEventListener('click', () => this.addToCart()); 
-    // the program will show the ExtraImages if they exist, or PrimaryLarge image
-    // if they don't. maxItems have the quantity of images.
-    if (this.product.Images.ExtraImages.length == 0) {
-        this.maxItems = 1;
-      } else {
-        this.maxItems = this.product.Images.ExtraImages.length;
-      }    
-
-    const items = document.querySelectorAll('.item');
-    items[this.currentItem].classList.add('current-item');
-
-    // button left and right of carousel have class = control
-    const controls = document.querySelectorAll('.control');
-
-    controls.forEach((control) => {
-      control.addEventListener('click', () => {
-        const isLeft = control.classList.contains('arrow-left');
-        if (isLeft) {
-          this.currentItem -= 1;
-        } else {
-          this.currentItem += 1;
-        }
-        if (this.currentItem >= this.maxItems) {
-          this.currentItem = 0;
-        }
-        if (this.currentItem < 0) {
-          this.currentItem = this.maxItems - 1;
-        }
-        // elements with class item are the images of the product.
-        
-        items.forEach((item) => {
-          item.classList.remove('current-item')
-        })
-        items[this.currentItem].classList.add('current-item');
-        items[this.currentItem].scrollIntoView({
-          inline: 'center',
-          behavior: 'smooth'
-        });
-      });
-    });    
-    
+      .addEventListener('click', (event) => this.addToCart(event));
   }
 
-
+  addToCart(event) {
+    checkCart();
   
   addToCart() {
     wiggleCart();
@@ -154,9 +113,13 @@ export default class ProductDetails {
       setArrLocalStorage('so-cart', this.product);
       alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
-    // if cartItems. 
-    checkCart();
-    
+
+    this.addToCartAlert.render({
+      message: `Added ${event.target.parentNode.parentNode.querySelector("h3").innerText} to cart`,
+      background: "white",
+      color: "blue"
+  });
+
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);

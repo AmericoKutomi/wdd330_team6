@@ -10,19 +10,19 @@ export default class SearchBar {
     }
 
     setup() {
-        this.prositionSelector = document.querySelector("#sortByPrice");
+        this.prositionSelector = document.querySelector('#sortByPrice');
         this.createElements();
     }
 
     createElements() {
-        this.searchBarHolder = document.createElement("div");
-        this.searchBarHolder.classList.add("search-bar");
+        this.searchBarHolder = document.createElement('div');
+        this.searchBarHolder.classList.add('search-bar');
         this.prositionSelector.after(this.searchBarHolder);
 
-        this.textField = document.createElement("input");
-        this.textField.placeholder = "Search";
-        this.textField.setAttribute("id", "search-bar-input");
-        this.textField.type = "search";
+        this.textField = document.createElement('input');
+        this.textField.placeholder = 'Search';
+        this.textField.setAttribute('id', 'search-bar-input');
+        this.textField.type = 'search';
         this.addListener();
     }
 
@@ -37,9 +37,7 @@ export default class SearchBar {
     }
 
     dataListFilter() {
-       return this.products.getDataList().filter((data) => {
-            return  data.Name.toLowerCase().includes(this.textField.value.toLowerCase());
-        });
+       return this.products.getDataList().filter((data) => data.Name.toLowerCase().includes(this.textField.value.toLowerCase()));
     }
 
 
