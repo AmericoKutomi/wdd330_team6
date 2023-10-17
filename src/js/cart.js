@@ -2,6 +2,8 @@ import {
   getLocalStorage,
   setLocalStorage,
   loadHeaderFooter,
+  calculateCartTotal,
+  isListEmpty,
   checkCart,
 } from './utils.mjs';
 
@@ -9,36 +11,28 @@ const productList = document.querySelector('.product-list');
 const domCartTotal = document.getElementById('cart-total');
 
 function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart') || [];
-  const isEmpty = isCartEmpty(cartItems);
+  const cartItems = getLocalStorage('so-cart');
+  const isEmpty = isListEmpty(cartItems);
 
+  if (!isEmpty) {
+    productList.innerHTML = cartItems.map((item) => cartItemTemplate(item));
 
-  !isEmpty
-    ? (productList.innerHTML = cartItems.map((item) => cartItemTemplate(item)))
-    : (productList.innerHTML = ``);
-
-
-  //Adds event listener to each 'X'
-  cartItems.forEach((item) => {
-    document
-      .getElementById(item.Id)
-      .addEventListener('click', () => removeCartItem(item.Id));
-  });
+    //Adds event listener to each 'X'
+    cartItems.forEach((item) => {
+      document
+        .getElementById(item.Id)
+        .addEventListener('click', () => removeCartItem(item.Id));
+    });
+  } else {
+    productList.innerHTML = ``;
+  }
 
   const cartTotalAmount = calculateCartTotal(cartItems);
 
   domCartTotal.innerHTML =
     !cartTotalAmount == 0
-      ? `Cart Total: $${cartTotalAmount}`
+      ? `Cart Total: $${cartTotalAmount.toFixed(2)}`
       : `<em>Your Cart is Empty</em>`;
-}
-
-function calculateCartTotal(cartItems) {
-  return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
-}
-
-function isCartEmpty(cartList) {
-  return Object.is(cartList, null) || cartList.length === 0;
 }
 
 function removeCartItem(id) {
@@ -56,21 +50,9 @@ function removeCartItem(id) {
       return;
     }
   }
-
-  cartItems.forEach((item) => {
-    if (id === item.Id) {
-      // let red = cartItems.pop(item);
-      // console.log(red);
-      return;
-    }
-
-    setLocalStorage('so-cart', cartItems);
-    renderCartContents();
-  });
 }
 
 function cartItemTemplate(item) {
-  // console.log(item);
   const newItem = `<li class='cart-card divider'>
   <div id='${item.Id}' title='Remove Item' class='remove_item'>❌</div>
   <a href='#' class='cart-card__image'>

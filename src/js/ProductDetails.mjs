@@ -1,5 +1,4 @@
-
-import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart } from './utils.mjs';
+import { setArrLocalStorage, setLocalStorage, getLocalStorage, checkCart, alertMessage } from './utils.mjs';
 
 
 function productDetailsTemplate(product) {
@@ -14,11 +13,28 @@ function productDetailsTemplate(product) {
     percentOff = ` - <span class="discount">${percent}% off!</span>`;
   }
 
+  let imageDiv = 
+  `<div class="container">
+    <button class="arrow-left control" aria-label="Previous image">&#9664;</button> 
+    <button class="arrow-right control" aria-label="Next image">&#9654;</button>
+    <div class="gallery-wrapper">
+      <div class="gallery">`
+
+
+  if (product.Images.ExtraImages.length == 0) {
+    imageDiv = `<img src="${product.Images.PrimaryLarge}" alt="${product.   NameWithoutBrand}" />`;
+  } else {
+    imageDiv += product.Images.ExtraImages.map( (image) => `<img class="item" src="${image.Src}" alt="${image.Title}" />`);
+  }
+  imageDiv += 
+  `   </div>
+    </div>
+  </div>`;
+
   return `<section class="product-detail">
     <h3>${product.Brand.Name}Butt</h3>
     <h2>${product.NameWithoutBrand}</h2>
-    <img src="${product.Images.PrimaryLarge}" alt="${product.NameWithoutBrand}" />
-
+    ${imageDiv}
     <p class="product-card__price">$${product.FinalPrice}${percentOff}</p></a>
     <p class="product__color">${product.Colors[0].ColorName}</p>
       <p class="product__description">${product.DescriptionHtmlSimple}</p>
@@ -27,6 +43,7 @@ function productDetailsTemplate(product) {
       </div>
     </section>`;
 }
+
 function isCartEmpty(cartList) {
   return Object.is(cartList, null) || cartList.length === 0;
 }
@@ -47,12 +64,55 @@ export default class ProductDetails {
     this.product = {};
     this.dataSource = dataSource;
     this.product.count = 0;
+    this.currentItem = 0;
+    this.maxItems = 0;
   }
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails('main');
     document.getElementById('addToCart')
-      .addEventListener('click', () => this.addToCart());
+      .addEventListener('click', () => this.addToCart()); 
+    // the program will show the ExtraImages if they exist, or PrimaryLarge image
+    // if they don't. maxItems have the quantity of images.
+    if (this.product.Images.ExtraImages.length == 0) {
+        this.maxItems = 1;
+      } else {
+        this.maxItems = this.product.Images.ExtraImages.length;
+      }    
+
+    const items = document.querySelectorAll('.item');
+    items[this.currentItem].classList.add('current-item');
+
+    // button left and right of carousel have class = control
+    const controls = document.querySelectorAll('.control');
+
+    controls.forEach((control) => {
+      control.addEventListener('click', () => {
+        const isLeft = control.classList.contains('arrow-left');
+        if (isLeft) {
+          this.currentItem -= 1;
+        } else {
+          this.currentItem += 1;
+        }
+        if (this.currentItem >= this.maxItems) {
+          this.currentItem = 0;
+        }
+        if (this.currentItem < 0) {
+          this.currentItem = this.maxItems - 1;
+        }
+        // elements with class item are the images of the product.
+        
+        items.forEach((item) => {
+          item.classList.remove('current-item')
+        })
+        items[this.currentItem].classList.add('current-item');
+        items[this.currentItem].scrollIntoView({
+          inline: 'center',
+          behavior: 'smooth'
+        });
+      });
+    });    
+    
   }
 
 
@@ -68,6 +128,7 @@ export default class ProductDetails {
       // console.log(cartItems);
       this.product.count = 1;
       setArrLocalStorage('so-cart', this.product);
+      alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
       // console.log(getLocalStorage('so-cart'));
       return;
     }
@@ -82,6 +143,7 @@ export default class ProductDetails {
         
         //Update Local Storage
         setLocalStorage('so-cart', cartItems);
+        alertMessage(`${this.product.NameWithoutBrand}: one more added to the quantity!`);
         // console.log(getLocalStorage('so-cart'));
         return;
       }
@@ -90,6 +152,7 @@ export default class ProductDetails {
     if (!found) {
       this.product.count = 1;
       setArrLocalStorage('so-cart', this.product);
+      alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
     // if cartItems. 
     checkCart();
