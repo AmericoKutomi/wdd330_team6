@@ -15,7 +15,7 @@ function renderCartContents() {
   const isEmpty = isListEmpty(cartItems);
 
   if (!isEmpty) {
-    productList.innerHTML = cartItems.map((item) => cartItemTemplate(item))
+    productList.innerHTML = cartItems.map((item) => cartItemTemplate(item));
 
     //Adds event listener to each 'X'
     cartItems.forEach((item) => {
