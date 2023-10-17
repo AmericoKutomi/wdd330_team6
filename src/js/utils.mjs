@@ -62,6 +62,7 @@ export async function loadHeaderFooter() {
   renderWithTemplate(footerTemplate, footerElement);
   checkCart();
 }
+
 export function checkCart(){
   const superScript = document.getElementById('superScript');
   const cartItems = getLocalStorage('so-cart') || [];

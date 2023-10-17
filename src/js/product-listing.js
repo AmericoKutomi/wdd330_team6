@@ -2,6 +2,7 @@ import ExternalServices from './ExternalServices.mjs';
 import ProductList from './ProductList.mjs';
 import { getParam, loadHeaderFooter } from './utils.mjs';
 import Alert from './alert';
+import SearchBar from './searchbar';
 
 loadHeaderFooter();
 
@@ -27,3 +28,6 @@ sortByPriceElement.addEventListener('click', () => products.sortBy('price'));
 const mainDivider = document.querySelector('main');
 const alerts = new Alert(mainDivider);
 alerts.init();
+
+const searchBar = new SearchBar(products);
+searchBar.init();

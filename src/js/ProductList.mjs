@@ -32,16 +32,30 @@ export default class ProductListing {
     }
 
     async init() {
-        const list = await this.dataSource.getData(this.category);
+        this.dataList = await this.dataSource.getData(this.category);
         if (this.topList.length !== 0) {
-            this.renderList(list.filter((product) => this.topList.indexOf(product.Id) !== -1));
+            this.renderList(this.dataList.filter((product) => this.topList.indexOf(product.Id) !== -1));
         } else {
-            this.renderList(list);
+            this.renderList(this.dataList);
         }
         document.querySelector('.title').innerHTML = this.category;
     }
+
     async renderList(list, clear = false) {
         renderListWithTemplate(productCardTemplate, this.listElement, list, 'afterbegin', clear);
+    }
+
+    getDataList() {
+        return this.dataList;
+    }
+
+    UpdateProductView(newDataList = undefined) {
+        if (newDataList) {
+            this.newDataList = newDataList;
+        } else {
+            this.newDataList = this.dataList;
+        }
+        this.renderList(this.newDataList, true);
     }
 
     setTopList(topProducts) {
@@ -49,10 +63,9 @@ export default class ProductListing {
     }
 
     async sortBy(order_field) {
-        const list = await this.dataSource.getData(this.category);
         let sortedList = [];
         if (order_field == 'name') {
-            sortedList = list.sort( function(a,b) {
+            sortedList = this.dataList.sort( function(a,b) {
                 let aName = a.Name.toLowerCase();
                 let bName = b.Name.toLowerCase();
                 if(aName > bName){return 1;}
@@ -60,7 +73,7 @@ export default class ProductListing {
                 return 0;
             })
         } else if (order_field == 'price') {
-            sortedList = list.sort( function(a,b) {
+            sortedList = this.dataList.sort( function(a,b) {
                 return a.FinalPrice - b.FinalPrice;
             });
         };
