@@ -3,9 +3,10 @@ import { renderHtmlWithTemplate, isListEmpty } from './utils.mjs';
 import AlertList from '../public/json/alerts.json';
 
 function AlertCardTemplate(alert) {
-  return `<div class='alert-card' style='background-color:${alert.background};color:${alert.color};'>
-    <p class='alert-card-message'>${alert.message}</p>
-    <span class='alert-card-close'>&#10006;</span>
+
+  return `<div class="alert-card" style="background-color:${alert.background};color:${alert.color};">
+    <p class="alert-card-message">${alert.message}</p>
+    <span class="alert-card-close">&#10006;</span>
     </div>`;
 }
 

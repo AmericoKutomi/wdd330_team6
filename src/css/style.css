@@ -277,6 +277,19 @@ header {
   width: 100%;
 }
 
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
+}
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
@@ -364,12 +377,24 @@ button {
   text-decoration: underline;
 }
 
-.sort-area {
-  display: flex;
-}
+    /* Sort Products styles*/
+
 .sort-button {
   display: inline-block;
   font-size: var(--small-font);
+  margin: 0;
+}
+
+    /* Search Bar styles */
+
+.search-bar {
+  display: inline-block;
+  margin-left: .5em;
+}
+
+#search-bar-input {
+  width: 20em;
+  padding: .5em;
 }
 
 /* End of Product Listing Styles */
