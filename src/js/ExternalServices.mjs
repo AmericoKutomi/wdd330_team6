@@ -1,5 +1,6 @@
 const baseURL = import.meta.env.VITE_SERVER_URL
 
+
 function convertToJson(res) {
   const resJson = res.json();
   if (res.ok) {
@@ -30,14 +31,14 @@ export default class ExternalServices {
   }
 
   async checkout(payload) {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    };
-    return await fetch(baseURL + "checkout/", options)
-      .then(convertToJson);
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      };
+      return await fetch(baseURL + "checkout/", options)
+        .then(convertToJson);
   }
 }

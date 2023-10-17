@@ -1,31 +1,37 @@
-import { getLocalStorage } from './utils.mjs';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  alertMessage,
+  removeAllAlerts,
+} from './utils.mjs';
 import ExternalServices from './ExternalServices';
 import { UserAlert } from './alert';
 
 const extServices = new ExternalServices();
 function dataToJson(formElement) {
-    const Data = new FormData(formElement);
-    const jsonObj = {};
+  const Data = new FormData(formElement);
+  const jsonObj = {};
 
-    Data.forEach((value, key) => { jsonObj[key] = value });
+  Data.forEach((value, key) => {
+    jsonObj[key] = value;
+  });
 
-    return jsonObj;
+  return jsonObj;
 }
 
 function packageItems(items) {
-    const simplifiedItems = items.map((item) => (
-        {
-        id: item.Id,
-        price: item.FinalPrice,
-        name: item.Name,
-        quantity: 1,
-        }
-    ));
+  const simplifiedItems = items.map((item) => ({
+    id: item.Id,
+    price: item.FinalPrice,
+    name: item.Name,
+    quantity: 1,
+  }));
 
-    return simplifiedItems;
+  return simplifiedItems;
 }
 
 export default class CheckoutProcess {
+
     constructor(key, selector) {
         this.key = key;
         this.selector = selector;

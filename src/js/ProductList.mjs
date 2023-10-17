@@ -65,7 +65,7 @@ export default class ProductListing {
     async sortBy(order_field) {
         let sortedList = [];
         if (order_field == 'name') {
-            sortedList = this.dataList.sort( function(a,b) {
+            sortedList = list.sort(function(a,b) {
                 let aName = a.Name.toLowerCase();
                 let bName = b.Name.toLowerCase();
                 if(aName > bName){return 1;}
@@ -73,7 +73,7 @@ export default class ProductListing {
                 return 0;
             })
         } else if (order_field == 'price') {
-            sortedList = this.dataList.sort( function(a,b) {
+            sortedList = list.sort(function(a,b) {
                 return a.FinalPrice - b.FinalPrice;
             });
         };
