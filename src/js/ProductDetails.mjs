@@ -48,6 +48,16 @@ function isCartEmpty(cartList) {
   return Object.is(cartList, null) || cartList.length === 0;
 }
 
+function wiggleCart(){
+  const cartPic = document.getElementById('cartPic');
+
+  cartPic.setAttribute('width', '30px');
+  setTimeout(function(){
+    cartPic.setAttribute('width', '25px');  
+  }, 500);
+  
+}
+
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
@@ -105,12 +115,14 @@ export default class ProductDetails {
     
   }
 
-  addToCart() {
-    checkCart();
 
+  
+  addToCart() {
+    wiggleCart();
+    
     const cartItems = getLocalStorage('so-cart');
     const isEmpty = isCartEmpty(cartItems);
-
+    
     // console.log(isEmpty);
     if (isEmpty) {
       // console.log(cartItems);
@@ -122,13 +134,13 @@ export default class ProductDetails {
     }
 
     let found = false;
-
+    
     // If it is already in Local Storage it will add 1 to quantity.
     cartItems.forEach(item => {
       if (this.productId == item['Id']) {
         item.count += 1;
         found = true;
-
+        
         //Update Local Storage
         setLocalStorage('so-cart', cartItems);
         alertMessage(`${this.product.NameWithoutBrand}: one more added to the quantity!`);
@@ -136,14 +148,15 @@ export default class ProductDetails {
         return;
       }
     });
-
+    
     if (!found) {
       this.product.count = 1;
       setArrLocalStorage('so-cart', this.product);
       alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
     // if cartItems. 
-
+    checkCart();
+    
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);

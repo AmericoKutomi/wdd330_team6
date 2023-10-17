@@ -319,10 +319,6 @@ button {
   text-align: center;
 }
 
-.cart svg {
-  width: 25px;
-}
-
 .cart:hover svg {
   fill: gray;
 }
