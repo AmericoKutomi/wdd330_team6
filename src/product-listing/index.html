@@ -7,14 +7,20 @@
     <link rel="stylesheet" href="../css/style.css" />
     <script src="../js/product-listing.js" type="module"></script>
   </head>
+
   <body>
     <header class="divider" id="main-header"></header>
     <main class="divider">
       <section class="products">
         <h2>Top Products <span class="title"></span></h2>
         <div class="sort_area">
-          <button class="sort-button" id="sortByName">Sort by Name</button>
-          <button class="sort-button" id="sortByPrice">Sort by Price</button>
+          <label class="sort-label" for="content-sort">Sort by:</label>
+          <select class="sort-select" id="content-sort">
+            <option value="productname_asc">Product name A-Z</option>
+            <option value="productname_desc">Product name Z-A</option>
+            <option value="price_asc">Price ascending</option>
+            <option value="price_desc">Price descending</option>
+          </select>
         </div>
         <ul class="product-list"></ul>
       </section>

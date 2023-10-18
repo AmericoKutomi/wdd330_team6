@@ -19,11 +19,17 @@ title.textContent = str2;
 
 products.init();
 
-const sortByNameElement = document.querySelector('#sortByName');
-sortByNameElement.addEventListener('click', () => products.sortBy('name'));
+const sortOption = document.querySelector('#content-sort');
 
-const sortByPriceElement = document.querySelector('#sortByPrice');
-sortByPriceElement.addEventListener('click', () => products.sortBy('price'));
+function SortProducts() {
+  products.sortBy(sortOption.value);
+}
+
+sortOption.addEventListener('change', () => {
+  SortProducts();
+});
+
+SortProducts();
 
 const mainDivider = document.querySelector('main');
 const alerts = new Alert(mainDivider);
