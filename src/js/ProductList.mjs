@@ -63,18 +63,29 @@ export default class ProductListing {
     }
 
     async sortBy(order_field) {
+        const list = await this.dataSource.getData(this.category);
         let sortedList = [];
-        if (order_field == 'name') {
+        if (order_field == 'productname_asc' || order_field == 'productname_desc') {
             sortedList = list.sort(function(a,b) {
                 let aName = a.Name.toLowerCase();
                 let bName = b.Name.toLowerCase();
-                if(aName > bName){return 1;}
-                if(aName < bName){return -1;}
-                return 0;
+                if (order_field == 'productname_asc') {
+                    if(aName > bName){return 1;}
+                    if(aName < bName){return -1;}
+                    return 0;   
+                } else {
+                    if(aName < bName){return 1;}
+                    if(aName > bName){return -1;}
+                    return 0;   
+                }
             })
-        } else if (order_field == 'price') {
+        } else if (order_field == 'price_asc' || order_field == 'price_desc') {
             sortedList = list.sort(function(a,b) {
-                return a.FinalPrice - b.FinalPrice;
+                if (order_field == 'price_asc') {
+                    return a.FinalPrice - b.FinalPrice;
+                } else {
+                    return b.FinalPrice - a.FinalPrice;
+                }
             });
         };
         this.renderList(sortedList, true);
