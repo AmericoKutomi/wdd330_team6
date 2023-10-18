@@ -1,7 +1,7 @@
 import ExternalServices from './ExternalServices.mjs';
 import ProductList from './ProductList.mjs';
 import { getParam, loadHeaderFooter } from './utils.mjs';
-import { SystemAlert } from './alert';
+import Alert from './alert';
 import SearchBar from './searchbar';
 
 loadHeaderFooter();
@@ -26,9 +26,7 @@ const sortByPriceElement = document.querySelector('#sortByPrice');
 sortByPriceElement.addEventListener('click', () => products.sortBy('price'));
 
 const mainDivider = document.querySelector('main');
-
-const alerts = new SystemAlert(mainDivider);
-
+const alerts = new Alert(mainDivider);
 alerts.init();
 
 const searchBar = new SearchBar(products);
